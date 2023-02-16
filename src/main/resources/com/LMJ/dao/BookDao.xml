@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.LMJ.dao.BookDao">
+
+    <select id="selectBooksByCondition" resultType="com.LMJ.pojo.Book">
+        select * from book
+        <where>
+            <if test="book.type !=''and book.type !=null">
+                and type like #{book.type}
+            </if>
+            <if test="book.name !='' and book.name !=null">
+                and name like #{book.name}
+            </if>
+        </where>
+        order by id desc
+        limit #{beginNum},#{pageSize}
+    </select>
+    <select id="countBooksByCondition" resultType="java.lang.Integer">
+        select count(*) from book
+        <where>
+            <if test="book.type !='' and book.type !=null">
+                and type like #{book.type}
+            </if>
+            <if test="book.name !='' and book.name !=null">
+                and name like #{book.name}
+            </if>
+        </where>
+    </select>
+</mapper>
